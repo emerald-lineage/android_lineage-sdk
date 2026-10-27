@@ -83,6 +83,9 @@ public class ConstraintsHelper {
     public void setAvailable(boolean available) {
         mAvailable = available;
         if (!available) {
+            // The reaper hides it from onAttached(), which runs after the list adapter is built:
+            // the preference would be drawn once first
+            mPref.setVisible(false);
             Graveyard.get(mContext).addTombstone(mPref.getKey());
         }
     }
